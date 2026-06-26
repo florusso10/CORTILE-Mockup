@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORTILE — App Mockup V2</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --navy:#0D1B2A; --blue:#3D6FFF; --blue-l:#EEF2FF;
+  --coral:#FF5C3A; --teal:#16C79A; --amber:#FFB020;
+  --bg:#F5F6FA; --card:#fff; --text:#1A2338; --text2:#6B7A99;
+  --border:#E8EBF4;
+}
+body {
+  background: linear-gradient(135deg,#1A1A2E 0%,#16213E 100%);
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:flex-start;
+  padding:28px 16px 40px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+h1 {
+  color:rgba(255,255,255,0.35); font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; font-weight:700; margin-bottom:20px;
+}
+.phone {
+  width:340px; background:#111; border-radius:46px;
+  padding:10px; position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px #2a2a2a,inset 0 0 0 1px #333;
+}
+.notch {
+  position:absolute; top:17px; left:50%; transform:translateX(-50%);
+  width:90px; height:22px; background:#111; border-radius:11px; z-index:100;
+}
+.screen-wrap {
+  width:100%; height:700px; background:var(--bg); border-radius:38px;
+  overflow:hidden; display:flex; flex-direction:column;
+}
+.status-bar {
+  background:#0D1B2A; padding:14px 22px 6px;
+  display:flex; justify-content:space-between;
+  color:rgba(255,255,255,0.85); font-size:11px; font-weight:700;
+  flex-shrink:0;
+}
+.screens { flex:1; position:relative; overflow:hidden; }
+.scr {
+  position:absolute; width:100%; height:100%;
+  overflow-y:auto; display:none; flex-direction:column;
+}
+.scr.on { display:flex; }
+.scr::-webkit-scrollbar { display:none; }
+
+/* NAV */
+.bot-nav {
+  background:#fff; border-top:1px solid var(--border);
+  display:flex; padding:7px 4px 14px; flex-shrink:0;
+}
+.nb {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+  cursor:pointer; color:var(--text2); font-size:9px; font-weight:600;
+  transition:color .15s;
+}
+.nb.on { color:var(--blue); }
+.ni { font-size:18px; position:relative; }
+.nbadge {
+  position:absolute; top:-3px; right:-8px;
+  background:var(--coral); color:#fff; border-radius:8px;
+  font-size:8px; font-weight:800; padding:1px 4px;
+  min-width:14px; text-align:center; line-height:1.4;
+}
+
+/* HOME */
+.h-hdr { background:#0D1B2A; padding:10px 16px 16px; flex-shrink:0; }
+.topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:13px; }
+.logo { font-size:16px; font-weight:900; letter-spacing:-1px; color:#fff; }
+.logo em { color:var(--blue); font-style:normal; }
+.bell { width:31px;height:31px; background:rgba(255,255,255,.1); border-radius:50%;
+  display:flex;align-items:center;justify-content:center; font-size:13px;
+  cursor:pointer; position:relative; }
+.bell-dot { position:absolute;top:-1px;right:-1px;width:8px;height:8px;
+  background:var(--coral);border-radius:50%;border:1.5px solid var(--navy); }
+.bldg-grid {
+  display:grid; grid-template-columns:repeat(8,1fr); gap:3px;
+  background:rgba(255,255,255,.05); padding:9px; border-radius:13px;
+  margin-bottom:12px;
+}
+.win { height:13px; border-radius:3px; background:rgba(255,255,255,.07); transition:background .6s; }
+.win.lit { background:#FFD166; }
+.win.blu { background:#4F9DFF; }
+.win.me { background:var(--blue); box-shadow:0 0 6px rgba(61,111,255,.9); }
+.bldg-ft { display:flex; justify-content:space-between; align-items:flex-end; }
+.bldg-nm { font-size:12px; font-weight:800; color:#fff; }
+.bldg-ap { font-size:9px; color:rgba(255,255,255,.45); margin-top:2px; }
+.act-pill { background:rgba(79,157,255,.18); border:1px solid rgba(79,157,255,.4);
+  border-radius:20px; padding:3px 9px; text-align:center; }
+.act-n { font-size:15px; font-weight:900; color:#4F9DFF; }
+.act-l { font-size:8px; color:rgba(255,255,255,.45); }
+
+.qa-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; padding:12px 12px 0; }
+.qa { display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer; }
+.qa-ic { width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:19px; }
+.qa-lb { font-size:9px;color:var(--text2);font-weight:600;text-align:center; }
+.sec { padding:11px 12px 5px;font-size:9px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1px;color:var(--text2); }
+
+.fc { display:flex;gap:9px;padding:9px 12px;background:#fff;
+  margin:0 9px 6px;border-radius:13px;cursor:pointer; }
+.fi { width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0; }
+.fb { flex:1;min-width:0; }
+.ft { font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px; }
+.fs { font-size:9px;color:var(--text2); white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.fw { font-size:9px;color:var(--text2);flex-shrink:0;margin-top:2px; }
+.sdot { width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;vertical-align:middle; }
+.sp { height:12px;flex-shrink:0; }
+
+/* BACHECA */
+.s-hdr { background:var(--navy);padding:10px 14px 11px;color:#fff;flex-shrink:0; }
+.s-hdr h2 { font-size:17px;font-weight:900;margin-bottom:9px; }
+.srch { background:rgba(255,255,255,.1);border-radius:10px;
+  padding:7px 11px;display:flex;align-items:center;gap:6px;
+  color:rgba(255,255,255,.45);font-size:11px; }
+.chips { display:flex;gap:6px;padding:9px 10px;overflow-x:auto;flex-shrink:0; }
+.chips::-webkit-scrollbar{display:none;}
+.chip { padding:4px 11px;border-radius:20px;font-size:10px;font-weight:600;
+  white-space:nowrap;cursor:pointer;background:#fff;color:var(--text2);border:1px solid var(--border); }
+.chip.on { background:var(--blue);color:#fff;border-color:var(--blue); }
+.pc { background:#fff;border-radius:13px;margin:0 9px 7px;padding:11px;cursor:pointer; }
+.pt { display:flex;justify-content:space-between;align-items:center;margin-bottom:6px; }
+.atag { background:var(--navy);color:#6F9DFF;padding:2px 8px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:0.3px;border:1px solid rgba(61,111,255,.35); }
+.pw { font-size:9px;color:var(--text2); }
+.pcat { font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px; }
+.ptxt { font-size:11px;color:var(--text);line-height:1.5;margin-bottom:8px; }
+.pbt { display:flex;gap:12px;padding-top:7px;border-top:1px solid var(--border); }
+.react { font-size:10px;color:var(--text2); }
+
+/* SEGNALAZIONI */
+.ic { background:#fff;border-radius:13px;margin:0 9px 7px;padding:11px;
+  display:flex;gap:9px;cursor:pointer; }
+.sc { width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0; }
+.so { background:var(--coral); } .sp2{background:var(--amber);} .sd{background:var(--teal);}
+.ib { flex:1; }
+.it { font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px; }
+.id2 { font-size:9px;color:var(--text2);line-height:1.4;margin-bottom:6px; }
+.tr { display:flex;gap:5px;flex-wrap:wrap; }
+.tg { font-size:8px;padding:2px 6px;border-radius:7px;font-weight:700; }
+.to{background:#FEF2F2;color:var(--coral);} .tp{background:#FFFBEB;color:#B45309;}
+.td{background:#ECFDF5;color:#059669;} .ta{background:var(--blue-l);color:var(--blue);}
+
+/* ASSEMBLEA */
+.vh { background:linear-gradient(140deg,#2D4FFF 0%,#1A2ECC 100%);
+  border-radius:17px;margin:9px;padding:15px;color:#fff; }
+.vey { font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;opacity:.6;margin-bottom:5px; }
+.vtit { font-size:13px;font-weight:800;margin-bottom:9px;line-height:1.35; }
+.vdl { font-size:9px;opacity:.6;margin-bottom:13px; }
+.vopts { display:flex;flex-direction:column;gap:6px; }
+.vo { background:rgba(255,255,255,.12);border-radius:9px;padding:9px 12px;
+  font-size:11px;font-weight:600;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .15s;border:1.5px solid transparent; }
+.vo:hover,.vo.sel{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);}
+.vc{font-size:9px;opacity:.7;}
+.pbc { background:#fff;border-radius:13px;margin:0 9px 9px;padding:11px; }
+.pbt2 { display:flex;justify-content:space-between;margin-bottom:6px;font-size:10px; }
+.pbt2 strong{color:var(--blue);}
+.trk{background:var(--border);border-radius:10px;height:6px;overflow:hidden;}
+.fll{height:100%;background:var(--blue);border-radius:10px;width:33%;}
+.pbn{font-size:9px;color:var(--text2);margin-top:5px;}
+
+/* FORNITORI */
+.prv { background:#fff;border-radius:13px;margin:0 9px 7px;padding:11px;
+  display:flex;gap:10px;cursor:pointer; }
+.pi { width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+.pb2 { flex:1; }
+.pn { font-size:12px;font-weight:800;color:var(--text);margin-bottom:2px; }
+.ps { font-size:9px;color:var(--text2);margin-bottom:5px; }
+.pm { display:flex;gap:7px;align-items:center;flex-wrap:wrap; }
+.str{color:#FFB020;font-size:9px;}
+.pc2{font-size:8px;color:var(--text2);}
+.ver{font-size:8px;color:var(--teal);font-weight:800;}
+
+/* DIFFERENZIATA CARD */
+.diff-card {
+  background:#0D1B2A; margin:0 9px 4px; border-radius:13px;
+  padding:10px 12px; border:1px solid rgba(61,111,255,.2);
+}
+.diff-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.diff-title { font-size:9px; font-weight:800; text-transform:uppercase;
+  letter-spacing:1px; color:#6B7A99; }
+.diff-days { display:flex; gap:4px; }
+.diff-day { flex:1; display:flex; flex-direction:column; align-items:center;
+  gap:2px; padding:6px 4px; border-radius:8px; background:rgba(255,255,255,.04); }
+.diff-day.oggi { background:rgba(61,111,255,.15); border:1px solid rgba(61,111,255,.3); }
+.diff-emoji { font-size:16px; line-height:1; }
+.diff-d { font-size:8px; font-weight:700; color:rgba(255,255,255,.45); }
+.diff-name { font-size:8px; font-weight:700; color:var(--blue); }
+.diff-day.oggi .diff-d { color:rgba(255,255,255,.7); }
+
+/* SONDAGGIO CARD */
+.poll-card { background:#fff; border-radius:13px; margin:0 9px 6px; padding:11px; cursor:pointer; }
+.poll-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.poll-badge { background:#EEF2FF; color:var(--blue); padding:2px 8px;
+  border-radius:11px; font-size:9px; font-weight:700; }
+.poll-q { font-size:12px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.poll-opts { display:flex; flex-direction:column; gap:5px; }
+.poll-opt { background:var(--bg); border-radius:8px; padding:7px 10px;
+  font-size:10px; font-weight:600; color:var(--text2); position:relative; overflow:hidden; }
+.poll-opt .bar { position:absolute; left:0; top:0; height:100%;
+  background:rgba(61,111,255,.1); border-radius:8px; }
+.poll-opt span { position:relative; z-index:1; }
+.poll-pct { position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  font-size:10px; font-weight:800; color:var(--blue); z-index:1; }
+.poll-foot { display:flex; justify-content:space-between; margin-top:7px;
+  padding-top:7px; border-top:1px solid var(--border); }
+
+/* ACTIVITY BADGE */
+.act-row { display:flex; gap:6px; padding:0 9px 6px; }
+.act-badge { flex:1; background:#fff; border-radius:10px; padding:8px 10px;
+  display:flex; align-items:center; gap:6px; }
+.act-ic { font-size:14px; }
+.act-info { flex:1; min-width:0; }
+.act-n2 { font-size:14px; font-weight:800; color:var(--text); line-height:1; }
+.act-l2 { font-size:9px; color:var(--text2); }
+
+</style>
+</head>
+<body>
+<h1>CORTILE · App Mockup V2</h1>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen-wrap">
+
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>▪▪▪ ▂▄▇ 🔋</span>
+    </div>
+
+    <div class="screens">
+
+      <!-- HOME -->
+      <div class="scr on" id="s-home">
+        <div class="h-hdr">
+          <div class="topbar">
+            <div class="logo">COR<em>TILE</em></div>
+            <div class="bell">🔔<div class="bell-dot"></div></div>
+          </div>
+          <div class="bldg-grid" id="bg"></div>
+          <div class="bldg-ft">
+            <div>
+              <div class="bldg-nm">Via Manzoni 8 · Bari</div>
+              <div class="bldg-ap">Scala B · Piano 2 · Ap. 5</div>
+            </div>
+            <div class="act-pill">
+              <div class="act-n">12</div>
+              <div class="act-l">attivi ora</div>
+            </div>
+          </div>
+        </div>
+        <div class="qa-grid">
+          <div class="qa" onclick="go('segnalazioni')"><div class="qa-ic" style="background:#FEF2F2">🔧</div><div class="qa-lb">Segnala</div></div>
+          <div class="qa" onclick="go('bacheca')"><div class="qa-ic" style="background:#EEF2FF">📋</div><div class="qa-lb">Bacheca</div></div>
+          <div class="qa" onclick="go('assemblea')"><div class="qa-ic" style="background:#ECFDF5">🏛</div><div class="qa-lb">Assemblea</div></div>
+          <div class="qa" onclick="go('documenti')"><div class="qa-ic" style="background:#FFFBEB">📁</div><div class="qa-lb">Documenti</div></div>
+        </div>
+        <div class="sec">🗑 Domani: Carta &nbsp;·&nbsp; ♻️ Giovedì: Vetro</div><div class="sec">Attività recente</div>
+        <div class="fc"><div class="fi" style="background:#FFFBEB">🔧</div><div class="fb"><div class="ft">Perdita acqua scala A</div><div class="fs"><span class="sdot" style="background:#FFB020"></span>In lavorazione · idraulico domani</div></div><div class="fw">2h fa</div></div>
+        <div class="fc"><div class="fi" style="background:#EEF2FF">🏛</div><div class="fb"><div class="ft">Assemblea 3 luglio — ore 20:00</div><div class="fs">8 presenze confermate · sala comune</div></div><div class="fw">ieri</div></div>
+        <div class="fc"><div class="fi" style="background:#F0FDF4">🌿</div><div class="fb"><div class="ft">Scala B, Piano 4</div><div class="fs">Offro piante da balcone — passa domani</div></div><div class="fw">ieri</div></div>
+        <div class="fc"><div class="fi" style="background:#ECFDF5">✅</div><div class="fb"><div class="ft">Ascensore riparato</div><div class="fs"><span class="sdot" style="background:#16C79A"></span>Risolto · manutenzione completata</div></div><div class="fw">2g fa</div></div>
+        <div class="sp"></div>
+      </div>
+
+      <!-- BACHECA -->
+      <div class="scr" id="s-bacheca">
+        <div class="s-hdr"><h2>Bacheca</h2><div class="srch">🔍 Cerca nella bacheca...</div></div>
+        <div class="chips">
+          <div class="chip on">Tutti</div>
+          <div class="chip">Avvisi</div>
+          <div class="chip">Segnalazioni</div>
+          <div class="chip">Oggetti</div>
+          <div class="chip">Offerte</div>
+        </div>
+        <div class="pc">
+          <div class="pt"><div class="atag">Scala B · P4</div><div class="pw">2h fa</div></div>
+          <div class="pcat" style="color:#3D6FFF">📢 Avviso</div>
+          <div class="ptxt">Ascensore in manutenzione straordinaria lunedì 9–13. Si prega di organizzarsi. Scuse per il disagio.</div>
+          <div class="pbt"><span class="react">👍 14</span><span class="react">💬 3 risposte</span></div>
+        </div>
+        <div class="pc">
+          <div class="pt"><div class="atag">Scala A · P1</div><div class="pw">ieri</div></div>
+          <div class="pcat" style="color:#FF5C3A">⚠️ Segnalazione</div>
+          <div class="ptxt">Il cancello pedonale non chiude dall'interno. Qualcuno ha già avvisato l'amministratore?</div>
+          <div class="pbt"><span class="react">👍 8</span><span class="react">💬 6 risposte</span></div>
+        </div>
+        <div class="pc">
+          <div class="pt"><div class="atag">Scala C · P3</div><div class="pw">2g fa</div></div>
+          <div class="pcat" style="color:#16C79A">🌿 Offerta</div>
+          <div class="ptxt">Offro gerani e lavanda da balcone. Chi vuole passa oggi dopo le 17.</div>
+          <div class="pbt"><span class="react">❤️ 22</span><span class="react">💬 9 risposte</span></div>
+        </div>
+        <div class="pc">
+          <div class="pt"><div class="atag">Scala B · P2</div><div class="pw">3g fa</div></div>
+          <div class="pcat" style="color:#8B5CF6">📦 Oggetto smarrito</div>
+          <div class="ptxt">Trovato un ombrello blu navy nell'androne? È di mio figlio.</div>
+          <div class="pbt"><span class="react">👍 2</span><span class="react">💬 1 risposta</span></div>
+        </div>
+        <div class="sp"></div>
+      </div>
+
+      <!-- SEGNALAZIONI -->
+      <div class="scr" id="s-segnalazioni">
+        <div class="s-hdr"><h2>Segnalazioni</h2><div class="srch">🔍 Cerca segnalazione...</div></div>
+        <div class="chips">
+          <div class="chip on">Tutte</div>
+          <div class="chip">Aperte</div>
+          <div class="chip">In corso</div>
+          <div class="chip">Risolte</div>
+        </div>
+        <div class="ic"><div class="sc sp2"></div><div class="ib"><div class="it">Perdita d'acqua — scala A, 3° piano</div><div class="id2">Macchia umida sul soffitto del corridoio. In crescita da 3 giorni.</div><div class="tr"><span class="tg tp">⏳ In corso</span><span class="tg ta">Scala A · P3</span></div></div></div>
+        <div class="ic"><div class="sc so"></div><div class="ib"><div class="it">Cancello pedonale non chiude</div><div class="id2">Meccanismo di chiusura automatica rotto. Sicurezza a rischio.</div><div class="tr"><span class="tg to">🔴 Aperta</span><span class="tg ta">Scala A · P1</span></div></div></div>
+        <div class="ic"><div class="sc so"></div><div class="ib"><div class="it">Illuminazione parcheggio box 7–12</div><div class="id2">Nessun punto luce funzionante nel settore B del parcheggio.</div><div class="tr"><span class="tg to">🔴 Aperta</span><span class="tg ta">Area comune</span></div></div></div>
+        <div class="ic"><div class="sc sd"></div><div class="ib"><div class="it">Ascensore bloccato al piano -1</div><div class="id2">Risolto dall'assistenza tecnica Otis in 4 ore dalla segnalazione.</div><div class="tr"><span class="tg td">✅ Risolta</span><span class="tg ta">Comune</span></div></div></div>
+        <div class="ic"><div class="sc sd"></div><div class="ib"><div class="it">Lampadina bruciata androne</div><div class="id2">Sostituita dall'elettricista condominiale in 2 giorni.</div><div class="tr"><span class="tg td">✅ Risolta</span><span class="tg ta">Comune</span></div></div></div>
+        <div class="sp"></div>
+      </div>
+
+      <!-- ASSEMBLEA -->
+      <div class="scr" id="s-assemblea">
+        <div class="s-hdr"><h2>Assemblea</h2></div>
+        <div class="sec" style="padding-top:10px">Prossima assemblea</div>
+        <div class="vh">
+          <div class="vey">🏛 Convocazione ufficiale</div>
+          <div class="vtit">Assemblea ordinaria — 3 luglio 2026</div>
+          <div class="vdl">Ore 20:00 · Sala comune piano terra</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:9px;padding:9px 12px;font-size:10px;color:rgba(255,255,255,.8);margin-bottom:10px">O.d.G.: manutenzione ascensore · preventivi rifacimento tetto</div>
+          <div style="background:#3D6FFF;border-radius:9px;padding:10px;text-align:center;font-size:12px;font-weight:700;color:#fff;cursor:pointer">✓ Confermo la presenza</div>
+        </div>
+        <div class="pbc">
+          <div class="pbt2"><span>Presenze confermate</span><strong>8 / 22 condomini</strong></div>
+          <div class="trk"><div class="fll"></div></div>
+          <div class="pbn">Mancano 14 giorni alla data</div>
+        </div>
+        <div class="sec">Storico assemblee</div>
+        <div class="fc"><div class="fi" style="background:#ECFDF5">📄</div><div class="fb"><div class="ft">Assemblea ordinaria — 15 mar 2026</div><div class="fs">Verbale disponibile · 18/22 presenti · €2.100</div></div><div class="fw">Mar</div></div>
+        <div class="fc"><div class="fi" style="background:#ECFDF5">📄</div><div class="fb"><div class="ft">Assemblea straordinaria — 10 dic 2025</div><div class="fs">Verbale disponibile · 20/22 presenti · €3.800</div></div><div class="fw">Dic</div></div>
+        <div class="fc"><div class="fi" style="background:#FEF2F2">📄</div><div class="fb"><div class="ft">Assemblea ordinaria — 5 set 2025</div><div class="fs">Verbale disponibile · 9/22 presenti</div></div><div class="fw">Set</div></div>
+        <div class="sp"></div>
+      </div>
+
+      <!-- DOCUMENTI -->
+      <div class="scr" id="s-documenti">
+        <div class="s-hdr"><h2>Documenti</h2><div class="srch">🔍 Cerca documento...</div></div>
+        <div class="chips">
+          <div class="chip on">Tutti</div>
+          <div class="chip">Verbali</div>
+          <div class="chip">Regolamento</div>
+          <div class="chip">Comunicazioni</div>
+        </div>
+        <div class="fc"><div class="fi" style="background:#EEF2FF">📄</div><div class="fb"><div class="ft">Verbale assemblea — 15 mar 2026</div><div class="fs">PDF · 2 pagine · Caricato da Admin</div></div><div class="fw">Verbale</div></div>
+        <div class="fc"><div class="fi" style="background:#FFFBEB">📋</div><div class="fb"><div class="ft">Regolamento condominiale</div><div class="fs">PDF · 12 pagine · Aggiornato gen 2024</div></div><div class="fw">Reg.</div></div>
+        <div class="fc"><div class="fi" style="background:#EEF2FF">📄</div><div class="fb"><div class="ft">Verbale assemblea — 10 dic 2025</div><div class="fs">PDF · 3 pagine · Caricato da Admin</div></div><div class="fw">Verbale</div></div>
+        <div class="fc"><div class="fi" style="background:#FEF2F2">🔔</div><div class="fb"><div class="ft">Comunicazione caldaia — giu 2026</div><div class="fs">PDF · 1 pagina · Caricato da Admin</div></div><div class="fw">Avviso</div></div>
+        <div class="fc"><div class="fi" style="background:#F3E8FF">📊</div><div class="fb"><div class="ft">Preventivo tetto — Edil Rossi</div><div class="fs">PDF · 4 pagine · Caricato da Admin</div></div><div class="fw">Prev.</div></div>
+        <div class="sp"></div>
+      </div>
+
+    </div><!-- /screens -->
+
+    <div class="bot-nav">
+      <div class="nb on" id="nb-home" onclick="go('home')"><div class="ni">🏠</div><span>Home</span></div>
+      <div class="nb" id="nb-bacheca" onclick="go('bacheca')"><div class="ni">📋<span class="nbadge">2</span></div><span>Bacheca</span></div>
+      <div class="nb" id="nb-segnalazioni" onclick="go('segnalazioni')"><div class="ni">🔧</div><span>Segnala</span></div>
+      <div class="nb" id="nb-assemblea" onclick="go('assemblea')"><div class="ni">🏛<span class="nbadge">1</span></div><span>Assemblea</span></div>
+      <div class="nb" id="nb-documenti" onclick="go('documenti')"><div class="ni">📁</div><span>Documenti</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Building grid
+(function(){
+  const g=document.getElementById('bg');
+  const lit=new Set([2,5,8,11,14,17,21,24,27,30]);
+  const blu=new Set([3,9,15,22,28]);
+  for(let i=0;i<32;i++){
+    const w=document.createElement('div');
+    w.className='win';
+    if(i===19) w.classList.add('me');
+    else if(lit.has(i)) w.classList.add('lit');
+    else if(blu.has(i)) w.classList.add('blu');
+    g.appendChild(w);
+  }
+  setInterval(()=>{
+    const ws=g.querySelectorAll('.win:not(.me)');
+    const w=ws[Math.floor(Math.random()*ws.length)];
+    if(w.classList.contains('lit')) w.classList.remove('lit');
+    else if(Math.random()>.65) w.classList.add('lit');
+  },900);
+})();
+
+function go(n){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('s-'+n).classList.add('on');
+  document.getElementById('nb-'+n).classList.add('on');
+  document.getElementById('s-'+n).scrollTop=0;
+}
+
+function sv(el){
+  document.querySelectorAll('.vo').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+}
+</script>
+</body>
+</html>
