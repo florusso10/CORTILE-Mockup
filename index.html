@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORTILE — App Mockup V2</title>
+<title>CORTILE — La community di condominio</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
@@ -221,10 +221,26 @@ h1 {
 .act-n2 { font-size:14px; font-weight:800; color:var(--text); line-height:1; }
 .act-l2 { font-size:9px; color:var(--text2); }
 
+/* ===================== SEZIONE FEEDBACK / QUESTIONARIO ===================== */
+#cortileScrollHint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+  z-index:9999;border:0;cursor:pointer;background:#3D6FFF;color:#fff;font-weight:700;
+  font-size:14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  padding:12px 22px;border-radius:26px;box-shadow:0 8px 24px rgba(0,0,0,.35);
+  animation:cortileBounce 1.8s infinite}
+@keyframes cortileBounce{0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-6px)}}
+#cortileScrollHint.hidden{display:none}
+#cortile-feedback{width:100%;max-width:420px;margin:48px auto 40px;padding:0 4px;
+  text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#cortile-feedback h2{color:#fff;font-size:24px;font-weight:800;margin:0 0 10px}
+#cortile-feedback p{color:rgba(255,255,255,.7);font-size:15px;line-height:1.5;margin:0 0 22px}
+.cortile-form-card{background:#fff;border-radius:22px;padding:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.cortile-form-card iframe{display:block;border-radius:12px}
 </style>
 </head>
 <body>
-<h1>CORTILE · App Mockup V2</h1>
+<h1>CORTILE &middot; Anteprima dell'app</h1>
 
 <div class="phone">
   <div class="notch"></div>
@@ -481,6 +497,24 @@ h1 {
   </div>
 </div>
 
+<!-- ============================================================
+     SEZIONE FEEDBACK — mockup sopra, questionario MejpBX sotto
+     ============================================================ -->
+<button id="cortileScrollHint"
+  onclick="document.getElementById('cortile-feedback').scrollIntoView({behavior:'smooth'})">
+  &#8595; Dicci cosa ne pensi
+</button>
+
+<section id="cortile-feedback">
+  <h2>Ora che l'hai visto&#8230;</h2>
+  <p>Aiutaci a costruirlo: raccontaci com'&egrave; il tuo palazzo.<br>Bastano pochi tap, &egrave; anonimo.</p>
+  <div class="cortile-form-card">
+    <iframe id="cortileTally" data-tally-src="" loading="lazy" width="100%"
+      height="500" frameborder="0" marginheight="0" marginwidth="0"
+      title="Questionario CORTILE"></iframe>
+  </div>
+</section>
+
 <script>
 // Building grid
 (function(){
@@ -515,6 +549,27 @@ function sv(el){
   document.querySelectorAll('.vo').forEach(o=>o.classList.remove('sel'));
   el.classList.add('sel');
 }
+
+// ---- Questionario Tally: passa 'source' e carica il widget ----
+(function(){
+  // da dove arriva il visitatore:  ...?src=XXX   (default "diretto")
+  var src = new URLSearchParams(location.search).get('src') || 'diretto';
+  var q = 'source=' + encodeURIComponent(src) +
+          '&alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
+  var f = document.getElementById('cortileTally');
+  f.dataset.tallySrc = 'https://tally.so/embed/MejpBX?' + q;
+  var d=document, w='https://tally.so/widgets/embed.js',
+  load=function(){ 'undefined'!=typeof Tally ? Tally.loadEmbeds()
+    : d.querySelectorAll('iframe[data-tally-src]:not([src])').forEach(function(e){e.src=e.dataset.tallySrc}); };
+  if('undefined'!=typeof Tally) load();
+  else if(!d.querySelector('script[src="'+w+'"]')){ var s=d.createElement('script'); s.src=w; s.onload=load; s.onerror=load; d.body.appendChild(s); }
+  // nasconde l'invito quando il form entra in vista
+  var hint=document.getElementById('cortileScrollHint');
+  addEventListener('scroll',function(){
+    var r=document.getElementById('cortile-feedback').getBoundingClientRect();
+    hint.classList.toggle('hidden', r.top < innerHeight*0.8);
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
